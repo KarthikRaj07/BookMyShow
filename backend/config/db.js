@@ -4,7 +4,11 @@ const connectDB = async () => {
   try {
     // Ensure database name is in the connection string
     let mongoUri = process.env.MONGO_URI;
-    
+
+    if (!mongoUri) {
+      throw new Error('MONGO_URI environment variable is not defined');
+    }
+
     // If database name is not in URI, add it
     if (!mongoUri.includes('/bookmyshow')) {
       if (mongoUri.includes('/?')) {
